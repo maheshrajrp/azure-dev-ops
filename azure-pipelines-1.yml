@@ -9,8 +9,7 @@ resources:
 - repo: self
 
 variables:
- - name: tag
-   value: nightly
+  tag: $(Build.SourceBranch)
 
 stages:
 - stage: Build
