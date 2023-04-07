@@ -66,6 +66,7 @@ stages:
         connectionType: 'kubernetesServiceConnection'
         kubernetesServiceConnection: 'kubeconfig'
         namespace: 'iris-ns'
+        imagePullSecrets: '$(acrsecret)'
         manifests: |
           $(Pipeline.Workspace)/s/manifests/deployment.yml
           $(Pipeline.Workspace)/s/manifests/service.yml
