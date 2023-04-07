@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iris-ui
+spec:
+  selector:
+    matchLabels:
+      app: iris-ui
+  template:
+    metadata:
+      labels:
+        app: iris-ui
+    spec:
+      containers:
+      - name: iris-ui
+        image: irissouthindia.azurecr.io/iris/iris-ui:nightly
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
