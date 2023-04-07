@@ -9,7 +9,7 @@ resources:
 - repo: self
 
 variables:
-  tag: $(System.PullRequest.SourceBranch)
+  tag: $[replace(variables['Build.SourceBranch'], 'refs/heads/main'),'']
 
 stages:
 - stage: Build
@@ -20,6 +20,10 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: 'echo $tag'
     - task: Docker@2
       inputs:
         containerRegistry: 'iris-south-acr'
