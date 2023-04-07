@@ -51,7 +51,7 @@ stages:
         action: 'createSecret'
         connectionType: 'kubernetesServiceConnection'
         kubernetesServiceConnection: 'kubeconfig'
-        namespace: 'default'
+        namespace: 'iris-ns'
         secretType: 'dockerRegistry'
         secretName: '$(acrsecret)'
         dockerRegistryEndpoint: 'iris-south-acr'
