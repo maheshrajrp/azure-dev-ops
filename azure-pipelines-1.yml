@@ -12,6 +12,8 @@ variables:
   tag: $[replace(variables['Build.SourceBranch'], 'refs/heads/main','')]
   containerBaseUrl: irissouthindia.azurecr.io
   containerRepo: iris/iris-ui
+  replicaCount: '2'
+
 stages:
 - stage: Build
   displayName: Build image
@@ -59,6 +61,7 @@ stages:
               buildType: 'current'
               artifactName: 'manifest'
               targetPath: '$(Pipeline.Workspace)/s/manifests'
+          
           - task: KubernetesManifest@1
             inputs:
               action: 'createSecret'
@@ -67,6 +70,22 @@ stages:
               secretType: 'dockerRegistry'
               secretName: '$(acrsecret)'
               dockerRegistryEndpoint: 'iris-south-acr'
+          - task: replacetokens@5
+            inputs:
+              rootDirectory: '$(Pipeline.Workspace)/s/manifests'
+              targetFiles: 'deployment.yml'
+              encoding: 'auto'
+              tokenPattern: 'custom'
+              tokenPrefix: '#'
+              tokenSuffix: '#'
+              writeBOM: true
+              actionOnMissing: 'warn'
+              keepToken: false
+              actionOnNoFiles: 'warn'
+              enableTransforms: false
+              enableRecursion: false
+              useLegacyPattern: false
+              enableTelemetry: true
           - task: KubernetesManifest@1
             inputs:
               action: 'deploy'
