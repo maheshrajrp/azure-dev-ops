@@ -10,7 +10,8 @@ resources:
 
 variables:
   tag: $[replace(variables['Build.SourceBranch'], 'refs/heads/main','')]
-
+  containerBaseUrl: irissouthindia.azurecr.io
+  containerRepo: iris/iris-ui
 stages:
 - stage: Build
   displayName: Build image
@@ -74,5 +75,5 @@ stages:
               manifests: |
                 $(Pipeline.Workspace)/s/manifests/deployment.yml
                 $(Pipeline.Workspace)/s/manifests/service.yml
-          
+              containers: '$(containerBaseUrl)/$(containerBaseRepo):$(tag)'
               
