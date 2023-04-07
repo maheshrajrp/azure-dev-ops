@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: iris-ui
 spec:
-  replicas: 2
+  replicas: #replicaCount#
   selector:
     matchLabels:
       app: iris-ui
