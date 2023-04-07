@@ -41,33 +41,35 @@ stages:
   variables:
     acrsecret: iris-south-acr-auth
   jobs:
-  - job: Deploy
+  - deployment: Deploy
     displayName: Deploy
+    environment: 'dev.iris-ns'
     pool:
       vmImage: ubuntu-latest
-    steps:
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        buildType: 'current'
-        artifactName: 'manifest'
-        targetPath: '$(Pipeline.Workspace)/s/manifests'
-    - task: KubernetesManifest@1
-      inputs:
-        action: 'createSecret'
-        connectionType: 'kubernetesServiceConnection'
-        kubernetesServiceConnection: 'kubeconfig'
-        namespace: 'iris-ns'
-        secretType: 'dockerRegistry'
-        secretName: '$(acrsecret)'
-        dockerRegistryEndpoint: 'iris-south-acr'
-    - task: KubernetesManifest@1
-      inputs:
-        action: 'deploy'
-        connectionType: 'kubernetesServiceConnection'
-        kubernetesServiceConnection: 'kubeconfig'
-        namespace: 'iris-ns'
-        manifests: |
-          $(Pipeline.Workspace)/s/manifests/deployment.yml
-          $(Pipeline.Workspace)/s/manifests/service.yml
-    
-        
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: 'manifest'
+              targetPath: '$(Pipeline.Workspace)/s/manifests'
+          - task: KubernetesManifest@1
+            inputs:
+              action: 'createSecret'
+              connectionType: 'kubernetesServiceConnection'
+              namespace: 'iris-ns'
+              secretType: 'dockerRegistry'
+              secretName: '$(acrsecret)'
+              dockerRegistryEndpoint: 'iris-south-acr'
+          - task: KubernetesManifest@1
+            inputs:
+              action: 'deploy'
+              connectionType: 'kubernetesServiceConnection'
+              namespace: 'iris-ns'
+              manifests: |
+                $(Pipeline.Workspace)/s/manifests/deployment.yml
+                $(Pipeline.Workspace)/s/manifests/service.yml
+          
+              
