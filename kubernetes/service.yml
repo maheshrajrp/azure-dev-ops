@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: vpm-ui-svc
 spec:
+  type: LoadBalancer
   selector:
     app: vpm-ui
   ports:
