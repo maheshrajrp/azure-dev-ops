@@ -21,9 +21,11 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build an image
       inputs:
-        command: build
-        dockerfile: '**/Dockerfile'
+        containerRegistry: 'iris-south-acr'
+        repository: 'iris/next-js'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
         tags: |
-          $(tag)
+          ${tag}
+          latest
