@@ -46,6 +46,11 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'manifest'
+        targetPath: '$(Pipeline.Workspace)/s/manifests'
     - task: KubernetesManifest@1
       inputs:
         action: 'createSecret'
@@ -55,18 +60,12 @@ stages:
         secretType: 'dockerRegistry'
         secretName: '$(acrsecret)'
         dockerRegistryEndpoint: 'iris-south-acr'
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        buildType: 'current'
-        artifactName: 'manifest'
-        targetPath: '$(Pipeline.Workspace)/s/manifests'
     - task: KubernetesManifest@1
       inputs:
         action: 'deploy'
         connectionType: 'kubernetesServiceConnection'
         kubernetesServiceConnection: 'kubeconfig'
         namespace: 'iris-ns'
-        imagePullSecrets: '$(acrsecret)'
         manifests: |
           $(Pipeline.Workspace)/s/manifests/deployment.yml
           $(Pipeline.Workspace)/s/manifests/service.yml
