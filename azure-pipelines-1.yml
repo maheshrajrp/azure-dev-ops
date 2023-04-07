@@ -9,7 +9,7 @@ resources:
 - repo: self
 
 variables:
-  tag: $[replace(variables['Build.SourceBranch'], 'refs/heads/main'),'']
+  tag: $[replace(variables['Build.SourceBranch'], 'refs/heads/main','')]
 
 stages:
 - stage: Build
