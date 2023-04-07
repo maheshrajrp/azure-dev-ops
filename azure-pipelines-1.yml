@@ -26,4 +26,5 @@ stages:
         repository: 'iris/next-js'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        tags: ${tag}
+        tags: |
+          dev
