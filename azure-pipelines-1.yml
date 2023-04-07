@@ -39,7 +39,7 @@ stages:
   dependsOn: Build
   displayName: Deploy to AKS
   variables:
-    acrsecret: k8secret
+    acrsecret: iris-south-acr-auth
   jobs:
   - job: Deploy
     displayName: Deploy
