@@ -5,7 +5,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: vpm-ui
+    app: iris-ui
   ports:
   - port: 80
     targetPort: 3000
