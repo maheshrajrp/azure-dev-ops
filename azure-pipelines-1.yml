@@ -30,3 +30,44 @@ stages:
         tags: |
           latest
           $(tag)
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Pipeline.Workspace)/s/kubernetes'
+        artifact: 'manifest'
+        publishLocation: 'pipeline'
+- stage: Deploy
+  dependsOn: Build
+  displayName: Deploy to AKS
+  variables:
+    acrsecret: iris-south-acr-auth
+  jobs:
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'manifest'
+        targetPath: '$(Pipeline.Workspace)/s/manifests'
+    - task: KubernetesManifest@1
+      inputs:
+        action: 'createSecret'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: 'kubeconfig'
+        namespace: 'iris-ns'
+        secretType: 'dockerRegistry'
+        secretName: '$(acrsecret)'
+        dockerRegistryEndpoint: 'iris-south-acr'
+    - task: KubernetesManifest@1
+      inputs:
+        action: 'deploy'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: 'kubeconfig'
+        namespace: 'iris-ns'
+        manifests: |
+          $(Pipeline.Workspace)/s/manifests/deployment.yml
+          $(Pipeline.Workspace)/s/manifests/service.yml
+    
+        
