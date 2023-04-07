@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
+import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -115,7 +115,7 @@ export default function Home() {
           <p
             className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
           >
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            Sam
           </p>
         </a>
       </div>
