@@ -9,7 +9,8 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+ - name: tag
+   value: nightly
 
 stages:
 - stage: Build
