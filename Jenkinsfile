@@ -13,6 +13,7 @@ podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
     }
     stage('Build') {
         container('node') {
+        sh 'ls'
         sh 'npm install'
         sh 'npm run build'
       }
