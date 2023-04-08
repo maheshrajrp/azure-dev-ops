@@ -5,6 +5,11 @@ podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
       container('maven') {
         sh 'echo Hi'
         sh 'echo $POD_LABEL'
+        sh 'touch'      
+      }
+        container('maven') {
+        sh 'ls'
+        sh 'echo $POD_LABEL'
       }
     }
   }
