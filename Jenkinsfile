@@ -13,8 +13,8 @@ podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
     }
     stage('Publish') {
       container('kaniko') {
-        sh '/kaniko/execture --dockerfile=`pwd`/Dockerfile --context=`pwd` \
-            --destination=maheshrajiris.azurecr.io/iris-ui:latest \
+        sh '/kaniko/executor --dockerfile=`pwd`/Dockerfile --context=`pwd` \
+            --destination=`$destinationRepo` \
             --skip-tls-verify=true'
       }
     }
