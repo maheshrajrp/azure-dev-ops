@@ -4,11 +4,6 @@ podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
     stage('Checkout SCM') {
       checkout scm
     }
-    stage('Check Auth') {
-      container('kaniko') {
-        sh 'cat /kaniko/.docker/config.json'
-      }
-    }
     stage('Build') {
         container('node') {
         sh 'ls'
