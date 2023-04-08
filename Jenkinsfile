@@ -21,7 +21,7 @@ podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
         sh 'ls /kaniko'
         sh 'ls /kaniko/.docker'
         sh '/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` \
-            --destination=maheshrajiris.azurecr.io/iris/iris-ui:nightly \
+            --destination maheshrajiris.azurecr.io/iris/iris-ui:nightly \
             --skip-tls-verify --insecure '
       }
     }
