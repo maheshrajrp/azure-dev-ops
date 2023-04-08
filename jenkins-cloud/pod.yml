@@ -2,27 +2,25 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-  - name: node
-    image: node:16
-    command:
-    - sleep
-    args:
-    - 99d
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:latest
-    args: ["--dockerfile=`pwd`/Dockerfile",
-            "--context=`pwd`",
-            "--destination=maheshrajiris.azurecr.io/<image-name>:<tag>",
-            "--skip-tls-verify=true"]
-    volumeMounts:
-    - name: kaniko-secret
-      mountPath: /secret
-      readOnly: true
-    - name: kaniko-workspace
-      mountPath: /workspace
+    - name: node
+      image: node:16
+      command:
+        - sleep
+      args:
+        - 99d
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:latest
+      command:
+        - cat
+      volumeMounts:
+        - name: kaniko-secret
+          mountPath: /secret
+          readOnly: true
+        - name: kaniko-workspace
+          mountPath: /workspace
   volumes:
-  - name: kaniko-secret
-    secret:
-      secretName: acr-credentials
-  - name: kaniko-workspace
-    emptyDir: {}
+    - name: kaniko-secret
+      secret:
+        secretName: acr-credentials
+    - name: kaniko-workspace
+      emptyDir: {}
