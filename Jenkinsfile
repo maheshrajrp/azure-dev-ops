@@ -4,13 +4,6 @@ podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
     stage('Checkout SCM') {
       checkout scm
     }
-    stage('Build a Maven project') {
-      container('node') {
-        sh 'echo Hi'
-        sh 'echo $POD_LABEL'
-        sh 'touch hello-world.html'      
-      }
-    }
     stage('Build') {
         container('node') {
         sh 'ls'
