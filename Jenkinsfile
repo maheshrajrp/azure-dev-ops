@@ -22,7 +22,7 @@ podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
         sh 'ls /kaniko/.docker'
         sh '/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` \
             --destination=`$destinationRepo` \
-            --skip-tls-verify=true'
+            --skip-tls-verify=true --insecure '
       }
     }
   }
