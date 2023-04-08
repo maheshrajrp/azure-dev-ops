@@ -4,3 +4,7 @@ spec:
   containers:
   - name: node
     image: node:16
+    command:
+    - sleep
+    args:
+    - 99d
