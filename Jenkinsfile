@@ -1,4 +1,4 @@
-podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yaml')) {
+podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
 
   node(POD_LABEL) {
     stage('Build a Maven project') {
