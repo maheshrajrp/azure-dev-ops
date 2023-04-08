@@ -7,6 +7,8 @@ podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
         sh 'echo $POD_LABEL'
         sh 'touch hello-world.html'      
       }
+    }
+    stage('Test Stage 2') {
         container('maven') {
         sh 'ls'
         sh 'echo $POD_LABEL'
