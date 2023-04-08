@@ -6,6 +6,7 @@ podTemplate(containers: [
     stage('Build a Maven project') {
       container('maven') {
         sh 'echo Hi'
+        sh 'echo $POD_LABEL'
       }
     }
   }
