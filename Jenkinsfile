@@ -11,5 +11,12 @@ podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
         sh 'npm run build'
       }
     }
+    stage('Publish') {
+      container('kaniko') {
+        sh '/kaniko/execture --dockerfile=`pwd`/Dockerfile --context=`pwd` \
+            --destination=maheshrajiris.azurecr.io/iris-ui:latest,
+            --skip-tls-verify=true'
+      }
+    }
   }
 }
