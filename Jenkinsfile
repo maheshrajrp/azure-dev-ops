@@ -1,10 +1,10 @@
 podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
 
-  node(POD_LABEL) {
-
     environment {
         IMAGE_TAG = "maheshrajiris.azurecr.io/iris/iris-ui:${env.BRANCH_NAME}"
     }
+
+  node(POD_LABEL) {
 
     stage('Checkout SCM') {
       checkout scm
