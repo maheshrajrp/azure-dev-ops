@@ -1,5 +1,4 @@
 pipeline {
-
   agent {
       kubernetes {
           yamlFile './jenkins-cloud/pod.yml'
@@ -10,38 +9,40 @@ pipeline {
     IMAGE_TAG = "maheshrajiris.azurecr.io/iris/iris-ui:${env.BRANCH_NAME}"
   }
   stages {
-    input {
-      message 'Do you approve ?'
-      ok 'Approve'
-      submitter 'maheshrajrp'
-      submitterParameter 'approver'
+    stage('Approval') {
+      input {
+        message 'Do you approve ?'
+        ok 'Approve'
+        submitter 'maheshrajrp'
+        submitterParameter 'approver'
+      }
     }
     stage('Prepare') {
-      steps{
+      steps {
         container('node') {
-        sh 'ls'
-        sh "echo $IMAGE_TAG"
-      }
+          sh 'ls'
+          sh "echo $IMAGE_TAG"
+        }
       }
     }
     stage('Build') {
-      steps{
+      steps {
         container('node') {
-        sh 'ls'
-        sh 'npm install'
-        sh 'npm run build'
-      }
+          sh 'ls'
+          sh 'npm install'
+          sh 'npm run build'
+        }
       }
     }
     stage('Publish') {
-      steps{
-      container('kaniko') {
-        sh 'ls /kaniko'
-        sh 'ls /kaniko/.docker'
-        sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` \
+      steps {
+        container('kaniko') {
+          sh 'ls /kaniko'
+          sh 'ls /kaniko/.docker'
+          sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` \
             --destination $IMAGE_TAG \
             --skip-tls-verify --insecure"
-      }
+        }
       }
     }
   }
