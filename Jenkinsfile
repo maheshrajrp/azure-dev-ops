@@ -14,6 +14,7 @@ pipeline {
     stage('Prepare') {
       steps{
         container('node') {
+        sh 'ls'
         sh "echo $IMAGE_TAG"
       }
       }
