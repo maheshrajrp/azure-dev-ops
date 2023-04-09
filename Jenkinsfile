@@ -11,7 +11,7 @@ pipeline {
   stages {
     stage('Approval') {
       steps {
-        input message: 'approval required', ok: 'Approved', submitter: 'qa-team'
+        input message: 'approval required', ok: 'Approved', submitter: 'qa-team,maheshrajrp'
       }
     }
 
