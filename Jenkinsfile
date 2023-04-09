@@ -11,6 +11,12 @@ pipeline {
   }
 
   stages {
+    stage('Alter') {
+    steps{
+      sh 'git -v'
+    }
+    }
+
     stage('Prepare') {
       steps{
         container('node') {
