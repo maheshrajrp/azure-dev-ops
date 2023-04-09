@@ -17,6 +17,7 @@ pipeline {
         credentialsId: 'MY_GITHUB_USERNAME_PASSWORD_CREDENTIALS',
         passwordVariable: 'TOKEN',
         usernameVariable: 'USER')]) {
+          sh "git config --list"
         sh "git push https://${USER}:${TOKEN}@github.com/maheshrajrp/azure-dev-ops.git main -f"
       }
     }
