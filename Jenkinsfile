@@ -10,11 +10,13 @@ pipeline {
   }
   stages {
     stage('Approval') {
-      input {
-        message 'Do you approve ?'
-        ok 'Approve'
-        submitter 'maheshrajrp'
-        submitterParameter 'approver'
+      steps {
+        input {
+          message 'Do you approve ?'
+          ok 'Approve'
+          submitter 'maheshrajrp'
+          submitterParameter 'approver'
+        }
       }
     }
     stage('Prepare') {
