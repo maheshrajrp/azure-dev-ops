@@ -10,6 +10,12 @@ pipeline {
     IMAGE_TAG = "maheshrajiris.azurecr.io/iris/iris-ui:${env.BRANCH_NAME}"
   }
   stages {
+    input {
+      message 'Do you approve ?'
+      ok 'Approve'
+      submitter 'maheshrajrp'
+      submitterParameter 'approver'
+    }
     stage('Prepare') {
       steps{
         container('node') {
