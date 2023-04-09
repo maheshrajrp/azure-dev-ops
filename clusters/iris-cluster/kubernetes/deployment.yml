@@ -16,9 +16,5 @@ spec:
       containers:
       - name: iris-ui
         image: irissouthindia.azurecr.io/iris/iris-ui:nightly
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - containerPort: 3000
