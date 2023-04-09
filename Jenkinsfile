@@ -7,7 +7,7 @@ pipeline {
   }
 
   environment {
-    $IMAGE_TAG = "maheshrajiris.azurecr.io/iris/iris-ui:${env.BRANCH_NAME}"
+    IMAGE_TAG = "maheshrajiris.azurecr.io/iris/iris-ui:${env.BRANCH_NAME}"
   }
 
   stages {
