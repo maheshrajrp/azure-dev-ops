@@ -13,6 +13,8 @@ spec:
       labels:
         app: iris-ui
     spec:
+      imagePullSecrets:
+      - name: regcred
       containers:
       - name: iris-ui
         image: maheshrajiris.azurecr.io/iris/iris-ui:nightly
@@ -22,5 +24,3 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 3000
-      imagePullSecrets:
-      - name: regcred
