@@ -13,7 +13,12 @@ pipeline {
   stages {
     stage('Alter') {
     steps{
-      sh 'git config --list'
+      withCredentials([usernamePassword(
+        credentialsId: 'MY_GITHUB_USERNAME_PASSWORD_CREDENTIALS',
+        passwordVariable: 'TOKEN',
+        usernameVariable: 'USER')]) {
+        sh "git push https://${USER}:${TOKEN}@github.com/maheshrajrp/azure-dev-ops.git main -f"
+      }
     }
     }
 
