@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('Alter') {
     steps{
-      sh 'git -v'
+      sh 'git config --list'
     }
     }
 
