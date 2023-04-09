@@ -1,11 +1,16 @@
-podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
+pipeline {
 
-    environment {
-        IMAGE_TAG = "maheshrajiris.azurecr.io/iris/iris-ui:${env.BRANCH_NAME}"
-    }
+  agent {
+      kubernetes {
+          yamlFile './jenkins-cloud/pod.yml'
+      }
+  }
 
-  node(POD_LABEL) {
+  environment {
+    $IMAGE_TAG = "maheshrajiris.azurecr.io/iris/iris-ui:${env.BRANCH_NAME}"
+  }
 
+  stages {
     stage('Checkout SCM') {
       checkout scm
     }
