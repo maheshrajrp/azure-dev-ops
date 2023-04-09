@@ -9,7 +9,7 @@ pipeline {
   environment {
     IMAGE_TAG = "maheshrajiris.azurecr.io/iris/iris-ui:${env.BRANCH_NAME}"
   }
-
+  stages {
     stage('Prepare') {
       steps{
         container('node') {
