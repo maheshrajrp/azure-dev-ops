@@ -11,7 +11,7 @@ podTemplate(yaml: readTrusted('./jenkins-cloud/pod.yml')) {
     }
     stage('Prepare') {
         container('node') {
-        sh 'echo $IMAGE_TAG'
+        sh "echo $IMAGE_TAG"
       }
     }
     stage('Build') {
