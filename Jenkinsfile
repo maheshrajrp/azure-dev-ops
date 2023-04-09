@@ -9,6 +9,12 @@ pipeline {
     IMAGE_TAG = "maheshrajiris.azurecr.io/iris/iris-ui:${env.BRANCH_NAME}"
   }
   stages {
+    stage('Approval') {
+      steps {
+        input message: 'approval required', ok: 'Approved', submitter: 'qa-team'
+      }
+    }
+
     stage('Prepare') {
       steps {
         container('node') {
